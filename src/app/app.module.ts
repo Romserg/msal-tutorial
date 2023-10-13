@@ -30,10 +30,10 @@ const isIE =
     MsalModule.forRoot(
       new PublicClientApplication({
         auth: {
-          clientId: "Enter_the_Application_Id_here", // Application (client) ID from the app registration
+          clientId: "c3eae107-c55b-4a0d-b259-19b8fc2545b1", // Application (client) ID from the app registration
           authority:
-            "Enter_the_Cloud_Instance_Id_Here/Enter_the_Tenant_Info_Here", // The Azure cloud instance and the app's sign-in audience (tenant ID, common, organizations, or consumers)
-          redirectUri: "Enter_the_Redirect_Uri_Here", // This is your redirect URI
+            "https://login.microsoftonline.com/f8cdef31-a31e-4b4a-93e4-5f571e91255a", // The Azure cloud instance and the app's sign-in audience (tenant ID, common, organizations, or consumers)
+          redirectUri: "http://localhost:4200", // This is your redirect URI
         },
         cache: {
           cacheLocation: "localStorage",
