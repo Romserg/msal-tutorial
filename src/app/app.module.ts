@@ -32,7 +32,7 @@ const isIE =
         auth: {
           clientId: "54b32af1-2f74-4706-b46b-406e800e0ee9", // Application (client) ID from the app registration
           authority:
-            "https://login.microsoftonline.com/f8cdef31-a31e-4b4a-93e4-5f571e91255a", // The Azure cloud instance and the app's sign-in audience (tenant ID, common, organizations, or consumers)
+            "https://login.microsoftonline.com/consumers", // The Azure cloud instance and the app's sign-in audience (tenant ID, common, organizations, or consumers) /f8cdef31-a31e-4b4a-93e4-5f571e91255a
           redirectUri: "http://localhost:4200", // This is your redirect URI
         },
         cache: {
