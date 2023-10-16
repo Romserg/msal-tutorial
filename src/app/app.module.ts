@@ -11,8 +11,8 @@ import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home/home.component";
 import { ProfileComponent } from "./profile/profile.component";
 
-import { MsalModule, MsalRedirectComponent } from "@azure/msal-angular";
-import { PublicClientApplication } from "@azure/msal-browser";
+import { MsalModule, MsalRedirectComponent, MsalGuard } from "@azure/msal-angular";
+import { PublicClientApplication, InteractionType } from "@azure/msal-browser";
 
 const isIE =
   window.navigator.userAgent.indexOf("MSIE ") > -1 ||
@@ -40,11 +40,16 @@ const isIE =
           storeAuthStateInCookie: isIE, // Set to true for Internet Explorer 11
         },
       }),
-      null,
+      {
+        interactionType: InteractionType.Redirect, // MSAL Guard Configuration
+        authRequest: {
+          scopes: ["user.read"],
+        },
+      },
       null
     ),
   ],
-  providers: [],
+  providers: [MsalGuard],
   bootstrap: [AppComponent, MsalRedirectComponent],
 })
 export class AppModule {}
