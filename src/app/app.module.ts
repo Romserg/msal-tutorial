@@ -11,8 +11,9 @@ import { AppComponent } from "./app.component";
 import { HomeComponent } from "./home/home.component";
 import { ProfileComponent } from "./profile/profile.component";
 
-import { MsalModule, MsalRedirectComponent, MsalGuard } from "@azure/msal-angular";
+import { MsalModule, MsalRedirectComponent, MsalGuard, MsalInterceptor } from "@azure/msal-angular";
 import { PublicClientApplication, InteractionType } from "@azure/msal-browser";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 
 const isIE =
   window.navigator.userAgent.indexOf("MSIE ") > -1 ||
@@ -24,6 +25,7 @@ const isIE =
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    HttpClientModule,
     MatButtonModule,
     MatToolbarModule,
     MatListModule,
@@ -46,10 +48,22 @@ const isIE =
           scopes: ["user.read"],
         },
       },
-      null
+      {
+        interactionType: InteractionType.Redirect, // MSAL Interceptor Configuration
+        protectedResourceMap: new Map([
+          ['https://graph.microsoft.com/v1.0/me', ["user.read"]],
+        ]),
+      }
     ),
   ],
-  providers: [MsalGuard],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MsalInterceptor,
+      multi: true,
+    },
+    MsalGuard
+  ],
   bootstrap: [AppComponent, MsalRedirectComponent],
 })
 export class AppModule {}
